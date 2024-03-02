@@ -1,0 +1,98 @@
+<% if(error) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+<% } else { %>
+    <h3><%= interviewData.interview.companyName %></h3>
+    <p><%= new Date(interviewData.interview.date).toISOString().split('T')[0] %></p>
+    
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+        Add Student
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addStudentModalLabel">Add student to interview</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="modal-body" action="/results" method="post">
+                <div class="mb-3 col-6">
+                    <label for="allocatedStudentId" class="form-label">Student's Id</label>
+                    <input type="text" class="form-control" id="allocatedStudentId" name="allocatedStudentId" required>
+                    <input type="text" class="form-control" id="interviewId" name="interviewId" value="<%= interviewData.interview._id %>" hidden>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <table class="m-2" style="width:98%">
+        <% if(interviewData?.students) { %>
+            <tr>
+            <th>Batch</th>
+            <th>Student Id</th>
+            <th>Name</th>
+            <th>College</th>
+            <th>Placement Status</th>
+            <th>DSA Score</th>
+            <th>Web dev score</th>
+            <th>ReactJS Score</th>
+            <th>Interview Result</th>
+            <th>Update Result</th>
+            </tr> 
+            
+            <% interviewData?.students?.forEach(student => {  %>
+                <tr>
+                    <td><%= student.student.batch %></td>
+                    <td><%= student.student.studentDetails.studentId %></td>
+                    <td><%= student.student.studentDetails.name %></td>
+                    <td><%= student.student.studentDetails.college %></td>
+                    <td><%= student.student.studentDetails.status %></td>
+                    <td><%= student.student.coursesScore.DSAFinalScore %></td>
+                    <td><%= student.student.coursesScore.webDFinalScore %></td>
+                    <td><%= student.student.coursesScore.reactFinalScore %></td>
+                    <td><%= student.result %></td>
+                    <td>
+                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#updateResultModel<%= student.student.studentDetails.studentId %>">
+                            Update result
+                        </button>
+                        <div class="modal fade" id="updateResultModel<%= student.student.studentDetails.studentId %>" tabindex="-1" aria-labelledby="updateResultModelLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content p-2">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="updateResultModelLabel">Update Result</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form class="modal-body p-1" action="/results/update" method="post">
+                                    <div class="mb-3 col-6">
+                                        <label for="status" class="form-label">Update result for <%= student.student.studentDetails.name %> (<%= student.student.studentDetails.studentId %>)</label>
+                                        <select id="result" name="result" class="form-select" aria-label="Default select example">
+                                            <option value="PASS">Pass</option>
+                                            <option value="FAIL">Fail</option>
+                                            <option value="OnHold">On Hold</option>
+                                            <option value="Didn’t Attempt">Didn’t Attempt</option>
+                                        </select>
+                                        <!-- <input type="text" class="form-control" id="u_studentId" name="studentId" value="<%= student.student._id %>" hidden> -->
+                                        <input type="text" class="form-control" id="u_interviewId" name="interviewId" value="<%= interviewData.interview._id %>" hidden>
+                                        <input type="text" class="form-control" id="resultId" name="resultId" value="<%= student._id %>" hidden />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </td>
+
+                </tr>
+            <% }) %>
+        <% } %>
+    </table>
+
+<% } %>

@@ -1,0 +1,34 @@
+<div class="button-and-heading">
+    <h3>Students</h3>
+    <a class="btn btn-primary" href="/students/add-student" role="button">Add student</a>
+</div>
+
+<table class="m-2" style="width:98%">
+    <% if(students && students.length > 0) { %>
+        <tr>
+          <th>Batch</th>
+          <th>Student Id</th>
+          <th>Name</th>
+          <th>College</th>
+          <th>Placement Status</th>
+          <th>DSA Score</th>
+          <th>Web dev score</th>
+          <th>ReactJS Score</th>
+        </tr> 
+        
+        <% students.forEach(student => {  %>
+            <tr>
+                <td><%= student.batch %></td>
+                <td><%= student.studentDetails.studentId %></td>
+                <td><%= student.studentDetails.name %></td>
+                <td><%= student.studentDetails.college %></td>
+                <td><%= student.studentDetails.status %></td>
+                <td><%= student.coursesScore.DSAFinalScore %></td>
+                <td><%= student.coursesScore.webDFinalScore %></td>
+                <td><%= student.coursesScore.reactFinalScore %></td>
+            </tr>
+        <% }) %>
+    <% } else { %>
+        <p>No Students available, please add students</p>
+    <% } %>
+</table>

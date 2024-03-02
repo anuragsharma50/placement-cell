@@ -1,0 +1,24 @@
+<div class="button-and-heading">
+    <h3>Interviews</h3>
+    <a class="btn btn-primary" href="/interviews/add-interview" role="button">Add Interview</a>
+</div>
+
+<table class="m-2" style="width:98%">
+    <% if(interviews && interviews.length > 0) { %>
+        <tr>
+          <th>Company Name</th>
+          <th>Date</th>
+          <th>Students</th>
+        </tr> 
+        
+        <% interviews.forEach(interview => {  %>
+            <tr>
+                <td><%= interview.companyName %></td>
+                <td><%= interview.date %></td>
+                <td><a href="/interviews/<%= interview._id %>">view students</a></td>
+            </tr>
+        <% }) %>
+        <% } else { %>
+            <p>No Interviews available, please add Interviews</p>
+        <% } %>
+</table>

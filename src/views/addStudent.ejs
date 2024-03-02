@@ -1,0 +1,50 @@
+<h1 class="mt-5 mb-4">Enter Student's details:</h1>
+
+<!-- <%if(error){ %>
+<div class="alert alert-danger" role="alert">
+    <%= error %>
+</div>
+<%}%> -->
+
+<form class="row" action="/students" method="post">
+    <div class="mb-3 col-6">
+        <label for="name" class="form-label">Student Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3 col-6">
+        <label for="studentId" class="form-label">Student's Id</label>
+        <input type="text" class="form-control" id="studentId" name="studentId" required>
+    </div>
+    <div class="mb-3 col-4">
+        <label for="batch" class="form-label">Student's Batch</label>
+        <input type="text" class="form-control" id="batch" name="batch" required>
+    </div>
+    <div class="mb-3 col-8">
+        <label for="college" class="form-label">Student's college</label>
+        <input type="text" class="form-control" id="college" name="college" required>
+    </div>
+    <!-- <div class="mb-3 col-6">
+        <label for="status" class="form-label">Student's Placement Status</label>
+        <input type="text" class="form-control" id="status" name="status" required>
+    </div> -->
+    <div class="mb-3 col-6">
+        <label for="status" class="form-label">Student's Placement Status</label>
+        <select class="form-select" aria-label="Default select example">
+            <option value="1">Placed</option>
+            <option value="2" selected>Not Placed</option>
+        </select>
+    </div>
+    <div class="mb-3 col-6">
+        <label for="DSAFinalScore" class="form-label">Student's DSA Final Score</label>
+        <input type="number" class="form-control" id="DSAFinalScore" name="DSAFinalScore" required>
+    </div>
+    <div class="mb-3 col-6">
+        <label for="webDFinalScore" class="form-label">Student's Web Development Final Score</label>
+        <input type="number" class="form-control" id="webDFinalScore" name="webDFinalScore" required>
+    </div>
+    <div class="mb-3 col-6">
+        <label for="reactFinalScore" class="form-label">Student's ReactJS Final Score</label>
+        <input type="number" class="form-control" id="reactFinalScore" name="reactFinalScore" required>
+    </div>
+    <button type="submit" class="btn btn-success">Add Student</button>
+</form>
